@@ -6,11 +6,7 @@
         <div class="login-container text-center" style="width: 100%; max-width: 500px">
           <!-- Logo -->
           <div class="text-center q-mb-lg">
-            <q-img
-              src="~/assets/images/logo.png"
-              style="max-width: 60%; height: auto"
-              alt="Onboarding Digital Logo"
-            />
+            <q-img src="~/assets/images/logo.png" style="max-width: 60%; height: auto" alt="Onboarding Digital Logo" />
           </div>
 
           <h1 class="text-h3 text-weight-bold q-mb-lg text-dark">Bienvenido de nuevo</h1>
@@ -20,43 +16,20 @@
 
           <!-- Login Form -->
           <q-form @submit="onSubmit" novalidate>
-            <q-input
-              v-model="form.email"
-              outlined
-              label="Correo electrónico"
-              type="email"
-              :error="!!errors.email"
-              :error-message="errors.email"
-              @blur="validateField('email')"
-            />
+            <q-input v-model="form.email" outlined label="Correo electrónico" type="email" :error="!!errors.email"
+              :error-message="errors.email" @blur="validateField('email')" />
 
-            <q-input
-              v-model="form.password"
-              outlined
-              label="Contraseña"
-              class="q-my-sm"
-              :type="isPwd ? 'password' : 'text'"
-              :error="!!errors.password"
-              :error-message="errors.password"
-              @blur="validateField('password')"
-            >
+            <q-input v-model="form.password" outlined label="Contraseña" class="q-my-sm"
+              :type="isPwd ? 'password' : 'text'" :error="!!errors.password" :error-message="errors.password"
+              @blur="validateField('password')">
               <template v-slot:append>
-                <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="isPwd = !isPwd"
-                />
+                <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer"
+                  @click="isPwd = !isPwd" />
               </template>
             </q-input>
 
-            <q-btn
-              type="submit"
-              color="primary"
-              class="full-width q-py-sm q-mt-md text-weight-bold"
-              style="background: #1a237e"
-              label="Continuar"
-              :loading="isLoading"
-            >
+            <q-btn type="submit" color="primary" class="full-width q-py-sm q-mt-md text-weight-bold"
+              style="background: #1a237e" label="Continuar" :loading="isLoading">
               <template v-slot:loading>
                 <q-spinner-tail />
               </template>
@@ -75,40 +48,35 @@
           </div>
 
           <!-- Main Illustration -->
-          <q-img
-            src="~/assets/svg/background.svg"
-            style="max-width: 100%; height: auto"
-            alt="Login Illustration"
-          />
+          <q-img src="~/assets/svg/background.svg" style="max-width: 100%; height: auto" alt="Login Illustration" />
         </div>
       </div>
     </div>
   </q-layout>
   <q-dialog v-model="dialogNotifyModel" position="top">
-    <notify-dialog
-      @answer="dialogNotifyModel = false"
-      :title="onTitle"
-      :messages="onComment"
-      :color="onColor"
-    />
+    <notify-dialog @answer="dialogNotifyModel = false" :title="onTitle" :messages="onComment" :color="onColor" />
   </q-dialog>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { API_URLS } from '../config/api_urls'
+// import { API_URLS } from '../config/api_urls'
 import { notify } from '../config/notifications'
-import { login } from '../composables/useApiService'
-import { validateRole } from '../composables/useLocalStorage'
+// import { login } from '../composables/useApiService'
+// import { validateRole } from '../composables/useLocalStorage'
 import { validateForm, validateFieldSchema } from '../utils/validations/useLoginForm'
+import NotifyDialog from 'src/components/dialogs/NotifyDialog.vue'
 
-import NotifyDialog from 'src/components/dialogs/notifyDialog.vue'
+import { login } from 'src/services/authService'
+import { useRouter } from 'vue-router'
 
 /** Component Notify */
 const onColor = ref('')
 const onTitle = ref('')
 const onComment = ref('')
 const dialogNotifyModel = ref(false)
+
+const router = useRouter()
 
 const form = ref({
   email: '',
@@ -136,11 +104,12 @@ const onSubmit = async () => {
     errors.value = {}
     try {
       isLoading.value = true
-      const response = await login(API_URLS.auth.login, form.value)
+      const response = await login(form.value)
       if (response.status) {
-        if (!validateRole()) {
-          showNotify(notify.TITLE.BASE, response.errors, notify.COLOR.FALSE)
-        }
+        router.push("/usuarios")
+        // if (!validateRole()) {
+        //   showNotify(notify.TITLE.BASE, response.errors, notify.COLOR.FALSE)
+        // }
       } else showNotify(notify.TITLE.BASE, response.errors, notify.COLOR.FALSE)
     } catch (error) {
       console.error(error)
