@@ -1,11 +1,11 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/loginLayout.vue'),
+    component: () => import('src/layouts/LoginLayout.vue'),
   },
   {
     path: '/usuarios',
-    component: () => import('layouts/usersLayout.vue'),
+    component: () => import('src/layouts/UserLayout.vue'),
   },
 
   // Always leave this as last one,
