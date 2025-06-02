@@ -8,13 +8,18 @@ const commonFields = [
   },
   {
     index: 2,
-    name: 'fullName',
+    name: 'profile',
+    sortable: false,
+  },
+  {
+    index: 2,
+    name: 'full_name',
     label: 'Nombre Completo',
     sortable: false,
   },
   {
     index: 5,
-    name: 'phone',
+    name: 'phone_number',
     label: 'Teléfono',
     sortable: false,
   },
@@ -53,7 +58,7 @@ export const users = [
   ...commonFields,
   {
     index: 3,
-    name: 'dateOfBirth',
+    name: 'birthdate',
     label: 'Fecha de Nacimiento',
   },
   {
@@ -62,8 +67,13 @@ export const users = [
     label: 'CURP',
   },
   {
+    index: 4,
+    name: 'electoral_key',
+    label: 'Clave Electoral',
+  },
+  {
     index: 7,
-    name: 'direction',
+    name: 'address',
     label: 'Dirección',
   },
   {

@@ -10,9 +10,10 @@ api.defaults.headers.common['Access-Control-Allow-Credentials'] = false
 
 api.interceptors.request.use(
   function (config) {
-    const token = LocalStorage.getItem('auth_token')
+    const token = LocalStorage.getItem('bearer_token')
+    console.log('Token:', token)
     if (token) {
-      config.headers = { Authorization: LocalStorage.getItem('auth_token') }
+      config.headers = { Authorization: `Bearer ${token}` }
     }
     return config
   },

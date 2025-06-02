@@ -1,11 +1,17 @@
 const routes = [
   {
     path: '/',
-    component: () => import('src/layouts/LoginLayout.vue'),
+    component: () => import('src/layouts/loginLayout.vue'),
   },
   {
     path: '/usuarios',
-    component: () => import('src/layouts/UserLayout.vue'),
+    component: () => import('src/layouts/userLayout.vue'),
+    children: [
+      {
+        path: 'listado',
+        component: () => import('src/pages/usersPage.vue'),
+      },
+    ],
   },
 
   // Always leave this as last one,

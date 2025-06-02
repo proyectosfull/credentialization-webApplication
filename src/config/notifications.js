@@ -4,6 +4,11 @@ export const notify = {
     ACTION: 'Solicitud de confirmación',
   },
 
+  LOGIN: {
+    NOT_ADMIN: 'No tienes permisos para acceder a esta sección.',
+    FALSE: 'No se ha podido iniciar sesión, por favor verifica tus credenciales.',
+  },
+
   COLOR: {
     TRUE: 'primary',
     FALSE: 'red-14',

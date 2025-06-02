@@ -16,9 +16,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'MainLayout',
-
-  components: {},
+  name: 'userLayout',
 
   setup() {
     return {}

@@ -13,7 +13,7 @@ export async function getUsers(params = {}) {
 
 export async function saveUser(user) {
   try {
-    const response = await api.post(API_URLS.users.index, user)
+    const response = await api.post(API_URLS.users.byId(user.id), user)
     return response
   } catch (error) {
     console.error('Save User Error:', error)
